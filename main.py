@@ -22,7 +22,6 @@ def search():
     selected_game.game = game
     selected_game.console = console
     matched_titles = match_game.match_game(selected_game.console, selected_game.game)
-    print(matched_titles)
     if len(matched_titles) > 0:
         if len(matched_titles) == 1:
             rows = match_game.select_from_db(selected_game.console,matched_titles[0])
@@ -30,12 +29,11 @@ def search():
             if len(rows) >= 15:
                 mean_average = round(sum([row[5] for row in rows[:15]])/15,2)
                 sorted_prices = sorted([row[5] for row in rows[:15]])
-                print(sorted_prices)
-                median_average = sorted_prices[6]
+                median_average = round(sorted_prices[6], 2)
             elif len(rows) > 0:
                 mean_average = round(sum([row[5] for row in rows]) / len(rows),2)
                 sorted_prices = sorted([row[5] for row in rows])
-                median_average = sorted_prices[math.floor(len(rows) / 2)]
+                median_average = round(sorted_prices[math.floor(len(rows) / 2)])
             else:
                 return render_template("error.html")
             return render_template("results.html", game=selected_game.game, console=selected_game.console, rows=rows, len_rows=len(rows), mean_average=mean_average, median_average=median_average)

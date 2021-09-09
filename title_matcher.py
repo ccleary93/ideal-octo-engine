@@ -37,5 +37,17 @@ class TitleMatcher:
             "xbox_360": self.xbox360_data,
             "gamecube": self.gamecube_data
         }
+        roman_schema = {
+            "2": "ii",
+            "3": "iii",
+            "4": "iv",
+            "5": "v",
+            "6": "vi"
+        }
         console_data = console_schema[console]
-        return self.get_matches(game, input_data=console_data)
+        matches = self.get_matches(game, input_data=console_data)
+        if not matches:
+            for word in game.split():
+                if word in roman_schema.keys():
+                    matches = self.get_matches(game.replace(word, roman_schema[word]), input_data=console_data)
+        return matches
