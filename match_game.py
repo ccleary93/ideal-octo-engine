@@ -1,4 +1,5 @@
-import sqlite3
+import psycopg2
+import os
 from title_matcher import TitleMatcher
 
 class MatchGame():
@@ -9,8 +10,7 @@ class MatchGame():
         return self.title_matcher.check_match(game,console)
 
     def select_from_db(self, console, game):
-        print(console)
-        db = sqlite3.connect(<ROUTE TO DB HERE>)
+        db = psycopg2.connect(f"dbname={os.environ['DB_NAME']} user={os.environ['DB_USER']} host={os.environ['DB_ADDRESS']} port=5432 password={os.environ['DB_PASSWORD']}")
         cursor = db.cursor()
         cursor.execute(f"SELECT * FROM {console} WHERE title = '{game}'")
         rows = cursor.fetchall()
