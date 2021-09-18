@@ -42,3 +42,10 @@ class MatchGame():
         top_count = list(top_dict.values())[:10]
         top_dict = {top_titles[i]: top_count[i] for i in range(10)}
         return top_dict
+
+    def highest_value(self,sale_list):
+        top_values = sorted(sale_list, key=lambda sale: sale[1], reverse=True)
+        #top_values = [sale for sale in sorted(sale_list, key=sale[1], reverse=True)]
+        # highest_value = [sale for sale in sale_list[0:10]]
+        # value_dict = {item: item[1] for item in sale_list}
+        return top_values[:10]
