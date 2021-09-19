@@ -32,6 +32,9 @@
 								<header class="major"><h2>Multiple games found</h2></header>
 								<p>Multiple items were found in the console database matching your search terms. Please select from the below:</p>
 								<form action="{{ url_for('select') }}" method="POST" style="color: white;">
+											<select name="console" style="display: none;">
+												<option value="{{ console }}">{{ console }}</option>
+											</select>
 											<label style="color: white;">Choose game: </label>
 											<select name="game">
 												{% for match in matches %}
@@ -41,12 +44,6 @@
 											<br>
 											<button type="submit">Select game</button>
 										</form>
-<!--                                {% for match in matches %}-->
-<!--								<form action="{{ url_for('select') }}" method="POST">-->
-<!--									<button name='game' type="submit">{{ match }}</button>-->
-<!--								</form>-->
-<!--                                {% endfor %}-->
-
 							</section>
 
 					</div>
