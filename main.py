@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for
 from match_game import MatchGame
 from data_cleanser import DataCleanser
+from snipe import SnipeUpcoming
 import math
 
 app = Flask(__name__)
 
 match_game = MatchGame()
 data_cleanser = DataCleanser()
+snipe_upcoming = SnipeUpcoming()
 
 @app.route("/")
 def home():
@@ -103,6 +105,11 @@ def search_top(console, game):
         median_average = sorted_prices[math.floor(len(rows) / 2)]
     return render_template("results.html", game=game, console=console, rows=rows,
                            len_rows=len(rows), mean_average=mean_average, median_average=median_average)
+
+@app.route('/snipe')
+def snipe_upcoming_auctions():
+    game_list = snipe_upcoming.find_upcoming()
+    return f"{game_list}"
 
 if __name__ == "__main__":
     app.run(debug=True)
