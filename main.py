@@ -108,8 +108,15 @@ def search_top(console, game):
 
 @app.route('/snipe')
 def snipe_upcoming_auctions():
+    # retrieve list of auctions ending soon
     game_list = snipe_upcoming.find_upcoming()
-    return f"{game_list}"
+    # add the average sale price to each item
+    game_list = [snipe_upcoming.find_average(game) for game in game_list]
+    # for game in game_list:
+    #     game = snipe_upcoming.find_average(game)
+    # find games where the mean or median sale price is below current bid
+    game_list = [game for game in game_list if snipe_upcoming.current_below_average(game)]
+    return render_template("snipe.html", games=game_list, num_results=len(game_list))
 
 if __name__ == "__main__":
     app.run(debug=True)
