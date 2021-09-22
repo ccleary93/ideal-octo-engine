@@ -32,9 +32,9 @@ class SnipeUpcoming:
             "GAMECUBE":"gamecube"
         }
 
-    def find_upcoming(self):
+    def find_upcoming(self, time):
         now = dt.now() - timedelta(minutes=60)
-        in_fifteen_mins = now + timedelta(minutes=15)
+        upper_limit = now + timedelta(minutes=time)
         continue_call = True
         pgn = 1
         game_list = []
@@ -57,7 +57,7 @@ class SnipeUpcoming:
             search_result = dictstr.searchResult
 
             for result in dictstr.searchResult.item:
-                if result.listingInfo.endTime > in_fifteen_mins:
+                if result.listingInfo.endTime > upper_limit:
                     break
                 stripped_description = data_cleanser.remove_punctuation(result.title)
                 for console in self.consoles.keys():
@@ -75,7 +75,7 @@ class SnipeUpcoming:
                         break
 
             pgn += 1
-            if in_fifteen_mins < dictstr.searchResult.item[99].listingInfo.endTime:
+            if upper_limit < dictstr.searchResult.item[99].listingInfo.endTime:
                 continue_call = False
 
         for console in self.consoles.keys():
@@ -112,8 +112,10 @@ class SnipeUpcoming:
             game['median_average'] = 0
         return game
 
-    def current_below_average(self, game):
-        if game['mean_average'] > game['total_price'] or game['median_average'] > game['total_price']:
+    def current_below_average(self, game, differential):
+        # calculate price to be measured against using differential
+        price_measure = game['total_price'] * (1 + differential)
+        if game['mean_average'] > price_measure or game['median_average'] > price_measure:
             return True
         else:
             return False

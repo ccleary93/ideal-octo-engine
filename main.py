@@ -106,16 +106,21 @@ def search_top(console, game):
     return render_template("results.html", game=game, console=console, rows=rows,
                            len_rows=len(rows), mean_average=mean_average, median_average=median_average)
 
-@app.route('/snipe')
+@app.route('/params')
+def enter_params():
+    return render_template('params.html')
+
+@app.route('/snipe', methods=['GET', 'POST'])
 def snipe_upcoming_auctions():
+    time = int(request.form['time'])
+    # differential will be used to multiply current price e.g. 10% means price x 1.1
+    differential = float(request.form['differential']) / 100
     # retrieve list of auctions ending soon
-    game_list = snipe_upcoming.find_upcoming()
+    game_list = snipe_upcoming.find_upcoming(time)
     # add the average sale price to each item
     game_list = [snipe_upcoming.find_average(game) for game in game_list]
-    # for game in game_list:
-    #     game = snipe_upcoming.find_average(game)
     # find games where the mean or median sale price is below current bid
-    game_list = [game for game in game_list if snipe_upcoming.current_below_average(game)]
+    game_list = [game for game in game_list if snipe_upcoming.current_below_average(game, differential)]
     return render_template("snipe.html", games=game_list, num_results=len(game_list))
 
 if __name__ == "__main__":
