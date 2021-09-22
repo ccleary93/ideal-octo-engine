@@ -42,7 +42,8 @@ class TitleMatcher:
             "3": "iii",
             "4": "iv",
             "5": "v",
-            "6": "vi"
+            "6": "vi",
+            "7": "vii"
         }
         console_data = console_schema[console]
         matches = self.get_matches(game, input_data=console_data)
@@ -51,3 +52,31 @@ class TitleMatcher:
                 if word in roman_schema.keys():
                     matches = self.get_matches(game.replace(word, roman_schema[word]), input_data=console_data)
         return matches
+
+    def match_game(self, game):
+        console_schema = {
+            "PS4": self.ps4_data,
+            "PLAYSTATION 4": self.ps4_data,
+            "PS3": self.ps3_data,
+            "PLAYSTATION 3": self.ps3_data,
+            "PS2": self.ps2_data,
+            "PLAYSTATION 2": self.ps2_data,
+            "XBOX ONE": self.xbone_data,
+            "XBOX 360": self.xbox360_data,
+            "GAMECUBE": self.gamecube_data
+        }
+        console_data = console_schema[game["console"]]
+        return self.get_single_match(game, input_data=console_data)
+
+    def get_single_match(self, game, input_data):
+        for line in input_data:
+            if game["description"].find(line) >= 0:
+                if game["title"] == "":
+                    game["title"] = line
+                else:
+                    if len(line) > len(game["title"]):
+                        game["title"] = line
+        if game["title"] != "":
+            return game
+        else:
+            return False
