@@ -19,32 +19,43 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1>Generic</h1>
-						<p>Ipsum dolor sit amet nullam</p>
+						<a href="{{ url_for('home') }}"><h1>Price sniper</h1></a>
+						<a href="{{ url_for('home') }}"><p>Home</p></a>
 					</header>
 
 				<!-- Main -->
 					<div id="main">
 
 						<!-- Content -->
+
 							<section id="content" class="main">
 								<div id="rcorners3">
 										<header class="major special"><h2>Enter search parameters</h2></header>
 
 										<form action="{{ url_for('snipe_upcoming_auctions') }}" method="POST" style="color: white;">
 											<label style="color: white;">Search auctions ending in the next: </label>
-											<input type="radio" name="time" value="5" id="5-mins">
+											<input type="radio" name="time" value="5" id="5-mins" onclick="hideOtherTime()" required>
                                             <label for="5-mins">5 minutes</label>
-                                            <input type="radio" name="time" value="15" id="15-mins">
+                                            <input type="radio" name="time" value="15" id="15-mins" onclick="hideOtherTime()">
                                             <label for="15-mins">10 minutes</label>
-                                            <input type="radio" name="time" value="30" id="30-mins">
+                                            <input type="radio" name="time" value="30" id="30-mins" onclick="hideOtherTime()">
 											<label for="30-mins">30 minutes</label>
-                                            <br>
+											<input type="radio" name="time" value="" id="other-time" onclick="revealOtherTime()">
+											<label for="other-time">Other</label>
+											<div style="display: none;" class="time-text">
+											<input type="text" name="time-other">
+                                            </div>
+											<br>
 											<label style="color: white;">Show auctions with a price differential greater than: </label>
-                                            <input type="radio" name="differential" value="10" id="10-pct">
+                                            <input type="radio" name="differential" value="10" id="10-pct" onclick="hideOtherDiff()" required>
                                             <label for="10-pct">10%</label>
-                                            <input type="radio" name="differential" value="20" id="20-pct">
+                                            <input type="radio" name="differential" value="20" id="20-pct" onclick="hideOtherDiff()">
                                             <label for="20-pct">20%</label>
+											<input type="radio" name="differential" value="" id="other-diff" onclick="revealOtherDiff()">
+											<label for="other-diff">Other</label>
+											<div style="display: none;" class="diff-text">
+											<input type="text" name="diff-other">
+                                            </div>
 											<br>
 											<button type="submit">Search auctions</button>
 										</form>
@@ -94,6 +105,24 @@
 			<script src="static/js/breakpoints.min.js"></script>
 			<script src="static/js/util.js"></script>
 			<script src="static/js/main.js"></script>
+			<script>
+				function revealOtherTime() {
+							const x = document.querySelector("div.time-text");
+							x.style.display = "block";
+						}
+				function revealOtherDiff() {
+							const x = document.querySelector("div.diff-text");
+							x.style.display = "block";
+						}
+				function hideOtherTime() {
+							const x = document.querySelector("div.time-text");
+							x.style.display = "none";
+						}
+				function hideOtherDiff() {
+							const x = document.querySelector("div.diff-text");
+							x.style.display = "none";
+						}
+			</script>
 
 	</body>
 </html>
