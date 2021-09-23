@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
 from match_game import MatchGame
 from data_cleanser import DataCleanser
 from snipe import SnipeUpcoming
@@ -102,7 +103,7 @@ def search_top(console, game):
     else:
         mean_average = round(sum([row[5] for row in rows]) / len(rows), 2)
         sorted_prices = sorted([row[5] for row in rows])
-        median_average = sorted_prices[math.floor(len(rows) / 2)]
+        median_average = sorted_prices[math.floor(len(rows) / 2) - 1]
     return render_template("results.html", game=game, console=console, rows=rows,
                            len_rows=len(rows), mean_average=mean_average, median_average=median_average)
 
@@ -112,9 +113,24 @@ def enter_params():
 
 @app.route('/snipe', methods=['GET', 'POST'])
 def snipe_upcoming_auctions():
-    time = int(request.form['time'])
+    time = request.form['time']
+    # if 'other' box ticked, take value from text input
+    if time == "":
+        time = request.form['time-other']
+    # catch instances where user clicks 'other' but does not enter a value
+    try:
+        time = int(time)
+    except ValueError:
+        return render_template('params.html')
     # differential will be used to multiply current price e.g. 10% means price x 1.1
-    differential = float(request.form['differential']) / 100
+    differential = request.form['differential']
+    # if 'other' box ticked, take value from text input
+    if differential == "":
+        differential = request.form['diff-other']
+    try:
+        differential = float(differential) / 100
+    except ValueError:
+        return render_template('params.html')
     # retrieve list of auctions ending soon
     game_list = snipe_upcoming.find_upcoming(time)
     # add the average sale price to each item
