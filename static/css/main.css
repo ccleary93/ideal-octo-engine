@@ -1824,6 +1824,74 @@ input, select, textarea {
 		border-color: rgba(255, 255, 255, 0.35);
 	}
 
+/* Flexbox */
+
+    .flexbox {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 2em;
+		margin-top: 2em;
+	}
+
+		.flexbox > :last-child,
+		.flexbox > :last-child > :last-child,
+		.flexbox > :last-child > :last-child > :last-child {
+			margin-bottom: 0;
+		}
+
+		.flexbox.alt {
+			border: 0;
+			border-radius: 0;
+			padding: 0;
+		}
+
+		.flexbox-desc {
+            flex-basis: 40%;
+            flex-grow: 0;
+            flex-shrink: 0;
+            padding: 3px;
+		}
+
+		.flexbox-inner {
+            flex-basis: 20%;
+            flex-grow: 0;
+            flex-shrink: 0;
+            padding: 3px;
+		}
+
+		.flexbox-id {
+            flex-basis: 20%;
+            flex-grow: 1;
+            flex-shrink: 0;
+            padding: 3px;
+            text-align: right;
+		}
+
+		.flexbox-desc-snipe {
+		    bottom-border: solid black 1px;
+		    flex-basis: 100%;
+            flex-grow: 0;
+            flex-shrink: 0;
+            padding: 3px;
+		}
+
+		.flexbox-child {
+		    max-width: 50%;
+		    min-width: 15%;
+		    padding: 3px;
+		}
+
+		.flexbox-last-child {
+		    flex-grow: 1;
+		    max-width: 50%;
+		    padding: 3px;
+		    text-align: right;
+		}
+
+	.flexbox {
+		border-color: rgba(255, 255, 255, 0.35);
+	}
+
 /* Button */
 
 	input[type="submit"],
@@ -3208,6 +3276,8 @@ input, select, textarea {
 			transform: scale(0.8) rotate(-30deg);
 		}
 
+
+
 /* Nav */
 
 	#nav {
@@ -3330,6 +3400,120 @@ input, select, textarea {
 				}
 
 		}
+
+/* Navbar */
+
+    .navbar {
+      position: relative;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+    }
+
+    .navbar > .container,
+    .navbar > .container-fluid {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    .navbar-brand {
+      display: inline-block;
+      padding-top: 0.3125rem;
+      padding-bottom: 0.3125rem;
+      margin-right: 1rem;
+      font-size: 1.25rem;
+      line-height: inherit;
+      white-space: nowrap;
+    }
+
+    .navbar-brand:hover, .navbar-brand:focus {
+      text-decoration: none;
+    }
+
+    .navbar-nav {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style: none;
+    }
+
+    .navbar-nav .nav-link {
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+    .navbar-nav .dropdown-menu {
+      position: static;
+      float: none;
+    }
+
+    .navbar-text {
+      display: inline-block;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .navbar-collapse {
+      -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+      -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    .navbar-toggler {
+      padding: 0.25rem 0.75rem;
+      font-size: 1.25rem;
+      line-height: 1;
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover, .navbar-toggler:focus {
+      text-decoration: none;
+    }
+
+    .navbar-toggler:not(:disabled):not(.disabled) {
+      cursor: pointer;
+    }
+
+    .navbar-toggler-icon {
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align: middle;
+      content: "";
+      background: no-repeat center center;
+      background-size: 100% 100%;
+    }
 
 /* Main */
 
@@ -3807,5 +3991,4 @@ input, select, textarea {
   padding: 5px;
   text-align: center;
   color: white;
-  width: 20%;
 }

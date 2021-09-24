@@ -52,22 +52,16 @@
 										<strong>£{{ median_average }}</strong> Median average last 15 results
 									</li>
 								</ul>
-								<table>
-									<tr>
-										<th>Description</th>
-										<th>Total sale price</th>
-										<th>Date / Time</th>
-										<th>Ebay ID</t>
-									</tr>
 								{% for row in rows %}
-									<tr>
-										<td>{{ row[2] }}</td>
-										<td>£{{ row[5] }}</td>
-										<td>{{ row[6] }} {{ row[7] }}</td>
-										<td><a href="https://www.ebay.co.uk/itm/{{ row[8] }}">{{ row[8] }}</a></td>
-									</tr>
+								<div class="flexbox" style="border: solid black 1px">
+
+									<div class="flexbox-desc"><u>Description</u><br>{{ row[2] }}</div>
+									<div class="flexbox-inner"><u>Price</u><br>{{ row[5] }}</div>
+									<div class="flexbox-inner"><u>Date / time</u><br>{{ row[6] }} {{ row[7] }}</div>
+									<div class="flexbox-id"><u>Link</u><br><a href="https://www.ebay.co.uk/itm/{{ row[8] }}">{{ row[8] }}</a></div>
+								</div>
 								{% endfor %}
-								</table>
+
 								{% endblock %}
 							</section>
 
