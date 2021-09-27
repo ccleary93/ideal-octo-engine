@@ -1824,6 +1824,15 @@ input, select, textarea {
 		border-color: rgba(255, 255, 255, 0.35);
 	}
 
+/* keyframe */
+
+    @keyframes dropdown {
+        /*from {visibility: hidden;}
+        to {visibility: visible;}*/
+        0% {opacity:0;}
+        100% {opacity:1;}
+    }
+
 /* Flexbox */
 
     .flexbox {
@@ -1890,6 +1899,23 @@ input, select, textarea {
 
 	.flexbox {
 		border-color: rgba(255, 255, 255, 0.35);
+	}
+
+	.flexbox-top {
+	    background-color: #f5f5f5;
+	    color: #0a0a0a;
+	}
+
+	.flexbox-sub {
+	   /* animation-name: dropdown;
+	    animation-duration: 4s; */
+	    background-color: #0a0a0a;
+	    color: #f5f5f5;
+	}
+
+	.animate {
+	    -webkit-animation: dropdown 3s;
+	    animation: dropdown 3s;
 	}
 
 /* Button */

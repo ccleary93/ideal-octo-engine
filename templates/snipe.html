@@ -47,7 +47,7 @@
 								</ul>
 
 								{% for game in games %}
-									<div class="flexbox" style="border: solid black 1px;">
+									<div class="flexbox flexbox-top" style="border: solid black 1px;">
 										<div class="flexbox-desc-snipe"><u>Description</u><br>{{ game['description'] }}</div>
 										<div class="flexbox-inner"><u>Price</u><br>£{{ game['total_price'] }}</div>
 										<div class="flexbox-inner"><u>Mean / median</u><br>£{{ game['mean_average'] }} / £{{ game['median_average'] }}</div>
@@ -55,18 +55,19 @@
 										<div class="flexbox-inner"><u>Link</u><br>
 											<a href="https://www.ebay.co.uk/itm/{{ game['ebay_id'] }}">{{ game['ebay_id'] }}</a>
 										</div>
-										<div class="flexbox-id"><button class="a{{ game['ebay_id'] }}" onclick="revealResults({{ game['ebay_id'] }})">Expand</button></div>
+										<div class="flexbox-id"><button class="a{{ game['ebay_id'] }}" id="c{{ game['ebay_id'] }}" onclick="revealResults({{ game['ebay_id'] }})">Expand</button></div>
 									</div>
+								<div id="d{{ game['ebay_id'] }}">
 								{% for row in game['results'] %}
 									<div class="b{{ game['ebay_id'] }}" style="display: none">
-										<div class="flexbox" style="border: solid black 1px; margin-bottom: 5px;">
+										<div class="flexbox flexbox-sub" style="border: solid black 1px; margin-bottom: 5px;">
 											<div class="flexbox-desc-snipe"><u>Description</u><br>{{ row[2] }}</div>
 											<div class="flexbox-inner"><u>Price:</u><br>£{{ row[5] }}</div>
 											<div class="flexbox-inner"><u>Date / time ended:</u><br>{{ row[6] }} {{ row[7] }}</div>
 										</div>
 									</div>
 								{% endfor %}
-
+								</div>
 								{% endfor %}
 
 
@@ -115,10 +116,17 @@
 			<script src="/static/js/breakpoints.min.js"></script>
 			<script src="/static/js/util.js"></script>
 			<script src="/static/js/main.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 			<script>
-				function helloWorld() {
-					console.log("Hello, world")
-				}
+<!--			generate ajax functions procedurally to tap into ID for animation-->
+			{% for game in games %}
+				$(function(){
+					$('#c{{ game['ebay_id'] }}').on('click',function(){
+					$('#d{{ game['ebay_id'] }}').addClass('animate');
+					});
+				});
+			{% endfor %}
+
 				function revealResults(ebayId) {
 					console.log(ebayId)
 					const x = document.querySelectorAll("div.b" + ebayId);
