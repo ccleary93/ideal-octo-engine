@@ -39,13 +39,14 @@
 							<div id="sidebox"><a href="{{ url_for('home') }}"><h2>Back to homepage</h2></a></div>
 								<br>
 								<header class="major special"><h2>Most common</h2></header>
-								<p>
-									<a href="#gamecube">Gamecube</a><a href="#ps2">Gamecube</a>
-									<a href="#ps3">Gamecube</a><a href="#ps4">Gamecube</a>
-									<a href="#xbox_360">Gamecube</a><a href="#xbox_one">Gamecube</a>
-								</p>
+								<div class="console-select">
+									<a href="#gamecube-common">Gamecube</a><a href="#ps2-common">PS2</a>
+									<a href="#ps3-common">PS3</a><a href="#ps4-common">PS4</a>
+									<a href="#xbox_360-common">Xbox 360</a><a href="#xbox_one-common">Xbox One</a>
+								</div>
+								<br>
 								{% for console in consoles %}
-								<h2 id="{{ console }}">{{ console }}</h2>
+								<h2 id="{{ console }}-common">{{ console }}</h2>
 								<table>
 									<tr>
 										<th>Game</th>
@@ -65,8 +66,14 @@
 
 						<section id="highest" class="main">
 							<header class="major special"><h2>Highest value</h2></header>
+							<div class="console-select">
+									<a href="#gamecube-highest">Gamecube</a><a href="#ps2-highest">PS2</a>
+									<a href="#ps3-highest">PS3</a><a href="#ps4-highest">PS4</a>
+									<a href="#xbox_360-highest">Xbox 360</a><a href="#xbox_one-highest">Xbox One</a>
+								</div>
+							<br>
 							{% for console in consoles %}
-							<h2>{{ console }}</h2>
+							<h2 id="{{ console }}-highest">{{ console }}</h2>
 							<table>
 									<tr>
 										<th>Game</th>

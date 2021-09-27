@@ -3515,6 +3515,12 @@ input, select, textarea {
       background-size: 100% 100%;
     }
 
+    .console-select {
+        align-content: space-evenly;
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto;
+    }
+
 /* Main */
 
 	#main {
