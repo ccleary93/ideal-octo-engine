@@ -89,12 +89,14 @@ class SnipeUpcoming:
         return game_list
 
     def find_average(self, game):
+        # retrieve historical sales data
         db = psycopg2.connect(
             f"dbname={os.environ['DB_NAME']} user={os.environ['DB_USER']} host={os.environ['DB_ADDRESS']} port=5432 password={os.environ['DB_PASSWORD']}")
         cursor = db.cursor()
         cursor.execute(f"SELECT * FROM {self.database_schema[game['console']]} WHERE title = '{game['title']}'")
         rows = cursor.fetchall()
         rows.reverse()
+        # return averages and results
         if len(rows) >= 15:
             game['mean_average'] = round(sum([row[5] for row in rows[:15]]) / 15, 2)
             sorted_prices = sorted([row[5] for row in rows[:15]])
@@ -110,12 +112,30 @@ class SnipeUpcoming:
         else:
             game['mean_average'] = 0
             game['median_average'] = 0
+            game['num_results'] = 0
         return game
 
-    def current_below_average(self, game, differential):
+    def current_below_average(self, game, differential, average_compare):
         # calculate price to be measured against using differential
         price_measure = game['total_price'] * (1 + differential)
-        if game['mean_average'] > price_measure or game['median_average'] > price_measure:
-            return True
+        # results determined by user preference - either/or/both mean/median
+        if average_compare == "either":
+            if game['mean_average'] > price_measure or game['median_average'] > price_measure:
+                return True
+            else:
+                return False
+        elif average_compare == "mean":
+            if game['mean_average'] > price_measure:
+                return True
+            else:
+                return False
+        elif average_compare == "median":
+            if game['median_average'] > price_measure:
+                return True
+            else:
+                return False
         else:
-            return False
+            if game['mean_average'] > price_measure and game['median_average'] > price_measure:
+                return True
+            else:
+                return False

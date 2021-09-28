@@ -53,7 +53,7 @@
 										<div class="flexbox-inner"><u>Mean / median</u><br>£{{ game['mean_average'] }} / £{{ game['median_average'] }}</div>
 										<div class="flexbox-inner"><u>Logged</u><br>{{ game['num_results'] }}</div>
 										<div class="flexbox-inner"><u>Link</u><br>
-											<a href="https://www.ebay.co.uk/itm/{{ game['ebay_id'] }}">{{ game['ebay_id'] }}</a>
+											<a href="https://www.ebay.co.uk/itm/{{ game['ebay_id'] }}" target="_blank">{{ game['ebay_id'] }}</a>
 										</div>
 										<div class="flexbox-id"><button class="a{{ game['ebay_id'] }}" id="c{{ game['ebay_id'] }}" onclick="revealResults({{ game['ebay_id'] }})">Expand</button></div>
 									</div>
@@ -127,6 +127,7 @@
 				});
 			{% endfor %}
 
+<!--			revealResults function reveals and collapses sub-results-->
 				function revealResults(ebayId) {
 					console.log(ebayId)
 					const x = document.querySelectorAll("div.b" + ebayId);

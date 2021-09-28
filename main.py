@@ -127,16 +127,21 @@ def snipe_upcoming_auctions():
     # if 'other' box ticked, take value from text input
     if differential == "":
         differential = request.form['diff-other']
+    # catch instances where user clicks 'other' but does not enter a value
     try:
         differential = float(differential) / 100
     except ValueError:
         return render_template('params.html')
+    # capture 'more options'
+    min_results = int(request.form['number-results'])
+    average_compare = request.form['average-compare']
     # retrieve list of auctions ending soon
     game_list = snipe_upcoming.find_upcoming(time)
-    # add the average sale price to each item
+    # add the average sale price to each item, require results > min_results
     game_list = [snipe_upcoming.find_average(game) for game in game_list]
+    game_list = [game for game in game_list if game['num_results'] >= min_results]
     # find games where the mean or median sale price is below current bid
-    game_list = [game for game in game_list if snipe_upcoming.current_below_average(game, differential)]
+    game_list = [game for game in game_list if snipe_upcoming.current_below_average(game, differential, average_compare)]
     return render_template("snipe.html", games=game_list, num_results=len(game_list))
 
 if __name__ == "__main__":
