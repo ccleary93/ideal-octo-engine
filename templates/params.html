@@ -83,8 +83,11 @@
 													value.
 												</p>
 											</div>
-											<button type="submit">Search auctions</button>
+											<button type="submit" onclick="loading()">Search auctions</button>
 										</form>
+									<div class="loading" style="display: none; text-align: center;">
+										<img src="/static/images/Spinner-1s-151px.gif">
+									</div>
                                 </div>
 
 							</section>
@@ -159,6 +162,16 @@
 						x.style.display = "none";
 					}
 				}
+
+				function loading() {
+							const time = document.getElementsByName("time");
+							const differential = document.getElementsByName("differential");
+							console.log(time)
+							if ($('input[name=time]:checked').length > 0 && ('input[name=differential]:checked').length > 0) {
+								const x = document.querySelector("div.loading");
+								x.style.display = "block";
+							}
+						}
 			</script>
 
 	</body>
