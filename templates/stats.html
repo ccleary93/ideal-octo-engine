@@ -45,8 +45,8 @@
 									<a href="#xbox_360-common">Xbox 360</a><a href="#xbox_one-common">Xbox One</a>
 								</div>
 								<br>
-								{% for console in consoles %}
-								<h2 id="{{ console }}-common">{{ console }}</h2>
+								{% for console in consoles.keys() %}
+								<h2 id="{{ console }}-common">{{ consoles[console] }}</h2>
 								<table>
 									<tr>
 										<th>Game</th>
@@ -72,8 +72,8 @@
 									<a href="#xbox_360-highest">Xbox 360</a><a href="#xbox_one-highest">Xbox One</a>
 								</div>
 							<br>
-							{% for console in consoles %}
-							<h2 id="{{ console }}-highest">{{ console }}</h2>
+							{% for console in consoles.keys() %}
+							<h2 id="{{ console }}-highest">{{ consoles[console] }}</h2>
 							<table>
 									<tr>
 										<th>Game</th>

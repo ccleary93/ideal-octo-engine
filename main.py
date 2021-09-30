@@ -35,7 +35,7 @@ def search():
                 median_average = round(sorted_prices[math.floor(len(rows) / 2)])
             else:
                 return render_template("error.html")
-            return render_template("results.html", game=game, console=console, rows=rows, len_rows=len(rows), mean_average=mean_average, median_average=median_average)
+            return render_template("results.html", game=game, console=console.replace("_"," "), rows=rows, len_rows=len(rows), mean_average=mean_average, median_average=median_average)
         else:
             return render_template("multiple.html", matches=matched_titles, console=console)
     else:
@@ -56,7 +56,7 @@ def select():
             mean_average = round(sum([row[5] for row in rows]) / len(rows), 2)
             sorted_prices = sorted([row[5] for row in rows])
             median_average = sorted_prices[math.floor(len(rows) / 2)]
-        return render_template("results.html", game=game, console=console, rows=rows, len_rows=len(rows), mean_average=mean_average, median_average=median_average)
+        return render_template("results.html", game=game, console=console.replace("_"," "), rows=rows, len_rows=len(rows), mean_average=mean_average, median_average=median_average)
     else:
         return render_template("error.html")
 
@@ -89,7 +89,15 @@ def stats():
     }
     print(highest_value['gamecube'])
     print(highest_value['ps2'])
-    consoles = ["gamecube", "ps2", "ps3", "ps4", "xbox_360", "xbox_one"]
+    # consoles = ["gamecube", "ps2", "ps3", "ps4", "xbox_360", "xbox_one"]
+    consoles = {
+        "gamecube": "gamecube",
+        "ps2": "ps2",
+        "ps3": "ps3",
+        "ps4": "ps4",
+        "xbox_360": "xbox 360",
+        "xbox_one": "xbox one"
+    }
     return render_template("stats.html", most_common=most_common, consoles=consoles, highest_value=highest_value)
 
 @app.route('/search_top/<console>/<game>', methods=['GET'])
