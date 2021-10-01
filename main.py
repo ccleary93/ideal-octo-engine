@@ -112,7 +112,7 @@ def search_top(console, game):
         mean_average = round(sum([row[5] for row in rows]) / len(rows), 2)
         sorted_prices = sorted([row[5] for row in rows])
         median_average = sorted_prices[math.floor(len(rows) / 2) - 1]
-    return render_template("results.html", game=game, console=console, rows=rows,
+    return render_template("results.html", game=game, console=console.replace("_", " "), rows=rows,
                            len_rows=len(rows), mean_average=mean_average, median_average=median_average)
 
 @app.route('/params')
@@ -132,9 +132,9 @@ def snipe_upcoming_auctions():
         return render_template('params.html')
     # differential will be used to multiply current price e.g. 10% means price x 1.1
     differential = request.form['differential']
-    # if 'other' box ticked, take value from text input
+    # if 'other' box ticked, take value from text input, catch potential input of '%'
     if differential == "":
-        differential = request.form['diff-other']
+        differential = request.form['diff-other'].replace("%","")
     # catch instances where user clicks 'other' but does not enter a value
     try:
         differential = float(differential) / 100
