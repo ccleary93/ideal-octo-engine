@@ -6,17 +6,12 @@
 
 						<!-- Content -->
 							<section id="content" class="main">
-								<div id="sidebox"><a href="{{ url_for('home') }}"><h2>Back to search</h2></a></div>
+								<div id="sidebox"><a href="{{ url_for('stats') }}"><h2>Back to stats</h2></a></div>
 
 								<br>
 								<header class="major"><h2>{{ game }} - {{ console }}</h2></header>
-								{% block noresults %}
-								{% if len_rows == 0 %}
-								<p>Although a match was found for this game, unfortunately there are no sales logged in the database right now.</p>
-								{% endif %}
-								{% endblock %}
 								{% block results %}
-								<ul class="statistics">
+								<<ul class="statistics">
 									<li class="style1">
 										<span class="icon solid fa-code-branch"></span>
 										<strong>{{ len_rows }}</strong> Number of results
@@ -30,22 +25,15 @@
 										<strong>£{{ median_average }}</strong> Median average last 15 results
 									</li>
 								</ul>
-								<table>
-									<tr>
-										<th>Description</th>
-										<th>Total sale price</th>
-										<th>Date / Time</th>
-										<th>Ebay ID</t>
-									</tr>
 								{% for row in rows %}
-									<tr>
-										<td>{{ row[2] }}</td>
-										<td>£{{ row[5] }}</td>
-										<td>{{ row[6] }} {{ row[7] }}</td>
-										<td><a href="https://www.ebay.co.uk/itm/{{ row[8] }}">{{ row[8] }}</a></td>
-									</tr>
+								<div class="flexbox" style="border: solid black 1px">
+
+									<div class="flexbox-desc"><u>Description</u><br>{{ row[2] }}</div>
+									<div class="flexbox-inner"><u>Price</u><br>{{ row[5] }}</div>
+									<div class="flexbox-inner"><u>Date / time</u><br>{{ row[6] }} {{ row[7] }}</div>
+									<div class="flexbox-id"><u>Link</u><br><a href="https://www.ebay.co.uk/itm/{{ row[8] }}" target="_blank">{{ row[8] }}</a></div>
+								</div>
 								{% endfor %}
-								</table>
 								{% endblock %}
 							</section>
 

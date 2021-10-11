@@ -33,7 +33,7 @@
 										<div class="flexbox-inner"><u>Link</u><br>
 											<a href="https://www.ebay.co.uk/itm/{{ game['ebay_id'] }}" target="_blank">{{ game['ebay_id'] }}</a>
 										</div>
-										<div class="flexbox-id"><button class="a{{ game['ebay_id'] }}" id="c{{ game['ebay_id'] }}" onclick="revealResults({{ game['ebay_id'] }})">Expand</button></div>
+										<div class="flexbox-id"><button class="a{{ game['ebay_id'] }}" id="c{{ game['ebay_id'] }}" onclick="revealResults({{ game['ebay_id'] }})">Show historical</button></div>
 									</div>
 								<div id="d{{ game['ebay_id'] }}">
 								{% for row in game['results'] %}
@@ -79,7 +79,7 @@
 						} else {
 							x[i].style.display = "none";
 							const y = document.querySelector("button.a" + ebayId)
-							y.innerHTML = "Expand"
+							y.innerHTML = "Show historical"
 						}
 					}
 				}

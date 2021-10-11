@@ -4,8 +4,8 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="#search" class="active">Search games</a></li>
-							<li><a href="#stats">Top stats</a></li>
 							<li><a href="#snipe">Snipe auctions</a></li>
+							<li><a href="#stats">Top stats</a></li>
 						</ul>
 					</nav>
 
@@ -22,8 +22,8 @@
 										</header>
 										<p>This website aims to provide a simple and easy-to-use set of tools to help ebay
 											traders buy and sell videogames. <br>We leverage historical sales data to identify bargains, average sale
-											prices and trends. <br>Our snipe auctions feature cross-references auctions ending soon
-											with historical data to identify underpriced auctions. Try it below!</p>
+											prices and trends. <br>Use the search feature below to check the average sale price of a game. <br>Use our snipe auctions feature to cross-reference auctions ending soon
+											with historical data to identify underpriced auctions.</p>
 
 									</div>
 
@@ -52,35 +52,6 @@
 							</section>
 
 						<!-- First Section -->
-							<section id="stats" class="main special">
-								<header class="major">
-									<h2>Top stats</h2>
-								</header>
-								<ul class="features">
-<!--									<li>-->
-<!--										<span class="icon solid major style1 fa-code"></span>-->
-<!--										<h3>Ipsum consequat</h3>-->
-<!--										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>-->
-<!--									</li>-->
-									<li>
-										<span class="icon major style3 fa-copy"></span>
-										<h3>Most commonly sold</h3>
-										<p>View a breakdown of the most commonly sold games in the last 14 days for each console.</p>
-									</li>
-									<li>
-										<span class="icon major style5 fa-gem"></span>
-										<h3>Highest value sales</h3>
-										<p>View the highest value sales in the last 14 days for each console.</p>
-									</li>
-								</ul>
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="{{ url_for('stats') }}" class="button">View stats</a></li>
-									</ul>
-								</footer>
-							</section>
-
-						<!-- Second Section -->
 							<section id="snipe" class="main special">
 								<header class="major">
 									<h2>Snipe auctions</h2>
@@ -100,6 +71,31 @@
 									</ul>
 								</footer>
 							</section>
+
+						<!-- Second Section -->
+							<section id="stats" class="main special">
+								<header class="major">
+									<h2>Top stats</h2>
+								</header>
+								<ul class="features">
+									<li>
+										<span class="icon major style3 fa-copy"></span>
+										<h3>Most commonly sold</h3>
+										<p>View a breakdown of the most commonly sold games in the last 14 days for each console.</p>
+									</li>
+									<li>
+										<span class="icon major style5 fa-gem"></span>
+										<h3>Highest value sales</h3>
+										<p>View the highest value sales in the last 14 days for each console.</p>
+									</li>
+								</ul>
+								<footer class="major">
+									<ul class="actions special">
+										<li><a href="{{ url_for('stats') }}" class="button">View stats</a></li>
+									</ul>
+								</footer>
+							</section>
+
 					</div>
 
 {% endblock %}
