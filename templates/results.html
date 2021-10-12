@@ -6,8 +6,13 @@
 
 						<!-- Content -->
 							<section id="content" class="main">
+								{% block top %}
+								{% if top %}
+								<div id="sidebox"><a href="{{ url_for('stats') }}"><h2>Back to stats</h2></a></div>
+								{% else %}
 								<div id="sidebox"><a href="{{ url_for('home') }}#intro"><h2>Back to search</h2></a></div>
-
+								{% endif %}
+								{% endblock %}
 								<br>
 								<header class="major"><h2>{{ game }} - {{ console }}</h2></header>
 								{% block noresults %}

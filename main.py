@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-from werkzeug.security import generate_password_hash, check_password_hash
 from match_game import MatchGame
 from data_cleanser import DataCleanser
 from snipe import SnipeUpcoming
@@ -35,7 +34,8 @@ def search():
                 median_average = round(sorted_prices[math.floor(len(rows) / 2)])
             else:
                 return render_template("error.html")
-            return render_template("results.html", game=game, console=console.replace("_"," "), rows=rows, len_rows=len(rows), mean_average=mean_average, median_average=median_average)
+            return render_template("results.html", game=game, console=console.replace("_"," "), rows=rows,
+                                   len_rows=len(rows), mean_average=mean_average, median_average=median_average, top=False)
         else:
             return render_template("multiple.html", matches=matched_titles, console=console)
     else:
@@ -56,7 +56,8 @@ def select():
             mean_average = round(sum([row[5] for row in rows]) / len(rows), 2)
             sorted_prices = sorted([row[5] for row in rows])
             median_average = sorted_prices[math.floor(len(rows) / 2)]
-        return render_template("results.html", game=game, console=console.replace("_"," "), rows=rows, len_rows=len(rows), mean_average=mean_average, median_average=median_average)
+        return render_template("results.html", game=game, console=console.replace("_"," "), rows=rows, len_rows=len(rows),
+                               mean_average=mean_average, median_average=median_average, top=False)
     else:
         return render_template("error.html")
 
@@ -70,7 +71,6 @@ def stats():
         "xbox_360":match_game.load_last_14_days("xbox_360"),
         "xbox_one":match_game.load_last_14_days("xbox_one")
     }
-    #print(last_14_days)
     most_common = {
         "gamecube": match_game.most_commonly_sold(last_14_days["gamecube"]),
         "ps2": match_game.most_commonly_sold(last_14_days["ps2"]),
@@ -87,9 +87,7 @@ def stats():
         "xbox_360": match_game.highest_value(last_14_days["xbox_360"]),
         "xbox_one": match_game.highest_value(last_14_days["xbox_one"])
     }
-    print(highest_value['gamecube'])
-    print(highest_value['ps2'])
-    # consoles = ["gamecube", "ps2", "ps3", "ps4", "xbox_360", "xbox_one"]
+
     consoles = {
         "gamecube": "gamecube",
         "ps2": "ps2",
@@ -113,7 +111,7 @@ def search_top(console, game):
         sorted_prices = sorted([row[5] for row in rows])
         median_average = sorted_prices[math.floor(len(rows) / 2) - 1]
     return render_template("results.html", game=game, console=console.replace("_", " "), rows=rows,
-                           len_rows=len(rows), mean_average=mean_average, median_average=median_average)
+                           len_rows=len(rows), mean_average=mean_average, median_average=median_average, top=True)
 
 @app.route('/params')
 def enter_params():
