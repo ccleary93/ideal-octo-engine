@@ -19,11 +19,16 @@ def search():
     console = request.form["console"]
     game = request.form["game"]
     game = data_cleanser.remove_punctuation(game)
+    # pass console and game title as variables to check game lists for a match
     matched_titles = match_game.match_game(console, game)
+    # return error.html if no match, results.html if a single match, multiple.html otherwise
     if len(matched_titles) > 0:
         if len(matched_titles) == 1:
+            # select sales logged in the database for the matched game
             rows = match_game.select_from_db(console,matched_titles[0])
+            # sort by most recent
             rows.reverse()
+            # take mean / median average from most recent 15 sales
             if len(rows) >= 15:
                 mean_average = round(sum([row[5] for row in rows[:15]])/15,2)
                 sorted_prices = sorted([row[5] for row in rows[:15]])
@@ -33,6 +38,7 @@ def search():
                 sorted_prices = sorted([row[5] for row in rows])
                 median_average = round(sorted_prices[math.floor(len(rows) / 2)])
             else:
+                # return error if a match found for game but no sales logged
                 return render_template("error.html")
             return render_template("results.html", game=game, console=console.replace("_"," "), rows=rows,
                                    len_rows=len(rows), mean_average=mean_average, median_average=median_average, top=False)
@@ -45,9 +51,13 @@ def search():
 def select():
     game = request.form["game"]
     console = request.form["console"]
+    # select sales logged in the database for the matched game
     rows = match_game.select_from_db(console, game)
+    # sort by most recent
     rows.reverse()
+    # return error if a match found for game but no sales logged
     if len(rows) > 0:
+        # take mean / median average from most recent 15 sales
         if len(rows) >= 15:
             mean_average = round(sum([row[5] for row in rows[:15]]) / 15, 2)
             sorted_prices = sorted([row[5] for row in rows[:15]])
@@ -63,6 +73,7 @@ def select():
 
 @app.route("/stats")
 def stats():
+    # load all sales over the past 14 days for each console
     last_14_days = {
         "gamecube":match_game.load_last_14_days("gamecube"),
         "ps2":match_game.load_last_14_days("ps2"),
@@ -71,6 +82,7 @@ def stats():
         "xbox_360":match_game.load_last_14_days("xbox_360"),
         "xbox_one":match_game.load_last_14_days("xbox_one")
     }
+    # load 10 most commonly sold and 10 highest value sales for each console
     most_common = {
         "gamecube": match_game.most_commonly_sold(last_14_days["gamecube"]),
         "ps2": match_game.most_commonly_sold(last_14_days["ps2"]),

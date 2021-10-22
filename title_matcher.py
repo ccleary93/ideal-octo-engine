@@ -21,6 +21,7 @@ class TitleMatcher:
 
     def get_matches(self, game, input_data):
         matched_titles = []
+        # search game list for a match to user input, append any matches to list
         for line in input_data:
             if line.find(game) >= 0:
                 matched_titles.append(line)
@@ -45,8 +46,11 @@ class TitleMatcher:
             "6": "vi",
             "7": "vii"
         }
+        # match console selected by user to console_data game list
         console_data = console_schema[console]
+        # check for match between game title and a title in the relevant game list for the console
         matches = self.get_matches(game, input_data=console_data)
+        # additional check to capture games with roman numerals in the title
         if not matches:
             for word in game.split():
                 if word in roman_schema.keys():
