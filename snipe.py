@@ -33,7 +33,7 @@ class SnipeUpcoming:
         }
 
     def find_upcoming(self, time):
-        now = dt.now() - timedelta(minutes=60)
+        now = dt.utcnow()
         upper_limit = now + timedelta(minutes=time)
         continue_call = True
         pgn = 1
@@ -54,7 +54,6 @@ class SnipeUpcoming:
             })
 
             dictstr = self.api.response_dict()
-            search_result = dictstr.searchResult
 
             for result in dictstr.searchResult.item:
                 if result.listingInfo.endTime > upper_limit:
